@@ -1,0 +1,52 @@
+{
+  "manifest_version": 2,
+  "name": "Chess.com to Lichess Bridge",
+  "version": "1.5.1",
+  "description": "When a game on chess.com ends, copies its PGN and offers one-click analysis on Lichess.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "chesscom-lichess-bridge@roman.local",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": {
+        "required": [
+          "websiteContent"
+        ]
+      }
+    },
+    "gecko_android": {
+      "strict_min_version": "142.0"
+    }
+  },
+  "permissions": [
+    "storage",
+    "clipboardWrite",
+    "https://www.chess.com/*",
+    "https://api.chess.com/*",
+    "https://lichess.org/*"
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.chess.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://lichess.org/paste*"
+      ],
+      "js": [
+        "lichess.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
